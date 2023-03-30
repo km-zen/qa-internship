@@ -36,7 +36,7 @@ public class FormCardTwo extends BasePage {
 
     public boolean isOpen(){
         LOGGER.info("check if Card Two is open");
-       return waitForElementVisible(avatarTitle,10);
+       return waitForElementVisible(avatarTitle,2);
     }
 
 

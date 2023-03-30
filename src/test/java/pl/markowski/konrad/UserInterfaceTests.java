@@ -1,14 +1,16 @@
 package pl.markowski.konrad;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
 import pl.markowski.konrad.base.BaseTest;
 import pl.markowski.konrad.page_objects.*;
+import pl.markowski.konrad.utils.Listener;
 
 import java.io.IOException;
-import java.text.Normalizer;
 
+
+@Listeners(Listener.class)
 public class UserInterfaceTests extends BaseTest {
     public UserInterfaceTests() throws IOException {
         super();
@@ -17,7 +19,7 @@ public class UserInterfaceTests extends BaseTest {
     @Test
     public void helpForm() throws IOException {
         Homepage homepage = new Homepage();
-        Assert.assertTrue(homepage.isOpen(),"Homepage is not open");
+        Assert.assertTrue(homepage.isOpen(), "Homepage is not open");
 
         homepage.clickHereBtn();
         GamePage gamePage = new GamePage();
@@ -32,11 +34,11 @@ public class UserInterfaceTests extends BaseTest {
     @Test
     public void timer() throws IOException {
         Homepage homepage = new Homepage();
-        Assert.assertTrue(homepage.isOpen(),"Homepage is not open");
+        Assert.assertTrue(homepage.isOpen(), "Homepage is not open");
 
         homepage.clickHereBtn();
         GamePage gamePage = new GamePage();
-        Assert.assertTrue(gamePage.isOpen(),"Game Page is not open");
+        Assert.assertTrue(gamePage.isOpen(), "Game Page is not open");
         Assert.assertEquals(gamePage.getTimerValue(), "00:00:00");
 
     }
@@ -61,7 +63,7 @@ public class UserInterfaceTests extends BaseTest {
 
 
     @Test(dataProvider = "cardOneFormData")
-    public void invalidPassword(String emailPrefix, String password, String domain, int topDomainId) throws IOException{
+    public void invalidPassword(String emailPrefix, String password, String domain, int topDomainId) throws IOException {
         Homepage homepage = new Homepage();
         Assert.assertTrue(homepage.isOpen(), "Homepage is not open");
 
@@ -70,7 +72,7 @@ public class UserInterfaceTests extends BaseTest {
         Assert.assertTrue(gamePage.isOpen(), "Game Page is not open");
 
         FormCardOne cardOne = new FormCardOne();
-        cardOne.fillCardOneFormWithInvalidData(emailPrefix,password,domain,topDomainId);
+        cardOne.fillCardOneFormWithInvalidData(emailPrefix, password, domain, topDomainId);
 
         FormCardTwo formCardTwo = new FormCardTwo();
         Assert.assertTrue(formCardTwo.isOpen(), "Second card is not open");
@@ -84,7 +86,7 @@ public class UserInterfaceTests extends BaseTest {
 
         GamePage gamePage = new GamePage();
         gamePage.disableCookies();
-        Assert.assertFalse(gamePage.isCookieBtnPresent(),"Cokies are not close");
+        Assert.assertFalse(gamePage.isCookieBtnPresent(), "Cokies are not close");
     }
 
     @Test

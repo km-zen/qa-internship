@@ -1,16 +1,18 @@
 package pl.markowski.konrad.base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 public class BasePage {
@@ -46,6 +48,19 @@ public class BasePage {
         driver.manage().window().maximize();
 
         driver.get(prop.getProperty("url"));
+    }
+
+    public void takeScreenshot(String name) throws IOException {
+        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+        File desFile = new File(System.getProperty("user.dir") +
+                "\\src\\main\\resources\\screenshots\\" + timeStamp() + ".png");
+
+        FileUtils.copyFile(srcFile,desFile);
+    }
+
+    public String timeStamp(){
+        return new SimpleDateFormat("yyyy-MM-dd HH-mm-ss").format(new Date());
     }
 
 
